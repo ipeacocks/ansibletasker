@@ -12,7 +12,7 @@
 	<form class="form-group" role="form" method="post" action="/">
 	  {{ form.csrf_token }}
 	  <p>
-	  {{ form.hostname(placeholder="hostname") }}
+	  {{ form.hostname(placeholder="hostname", class="form-control") }}
 	  </p>
 	</form>
 </div>
@@ -34,7 +34,7 @@
 	<form>
 	  {{ form.csrf_token }}
 	  <p>
-	  {{ form.textarea(placeholder="textarea") }}
+	  {{ form.textarea(placeholder="textarea", class="form-control", rows="4") }}
 	  </p>
 	</form>
 </div>
