@@ -21,11 +21,7 @@
 	<h4>Select subsystem</h4>
 	<p>Select subsystem which you want to re-configure</p>
 	<!-- <label for="filter">Filter by</label> -->
-	<select class="form-control">
-		<option value="1" selected>bosh</option>
-		<option value="2">cloudfoundry</option>
-		<option value="3">redis</option>
-	</select>
+	{{ form.subsystem(placeholder="subsystem", class="form-control") }}
 </div>
 
 <div class="col-md-12">
@@ -34,7 +30,7 @@
 	<form>
 	  {{ form.csrf_token }}
 	  <p>
-	  {{ form.textarea(placeholder="textarea", class="form-control", rows="4") }}
+	  {{ form.textarea(placeholder="textarea", class="form-control") }}
 	  </p>
 	</form>
 </div>
