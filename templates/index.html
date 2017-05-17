@@ -6,38 +6,25 @@
 	<h3 class="text-muted">Ansible Playbook Launcher</h3>
 </div>
 
-<div class="col-md-6">
+<form class="form-sigin" role="form" method="post" action="/">
+{{ form.csrf_token }}
 	<h4>Type your bootstrap host</h4>
 	<p>This host will be used for configuring your system</p>
-	<form class="form-group" role="form" method="post" action="/">
-	  {{ form.csrf_token }}
-	  <p>
-	  {{ form.hostname(placeholder="hostname", class="form-control") }}
-	  </p>
-	</form>
-</div>
+    <p>
+    	{{ form.hostname(placeholder="hostname", class="form-control") }}
+    </p>
 
-<div class="col-md-6">
+    <p>
 	<h4>Select subsystem</h4>
 	<p>Select subsystem which you want to re-configure</p>
-	<!-- <label for="filter">Filter by</label> -->
-	{{ form.subsystem(placeholder="subsystem", class="form-control") }}
-</div>
-
-<div class="col-md-12">
+		{{ form.subsystem(placeholder="subsystem", class="form-control") }}
+    </p>
+    <p>
 	<h4>Comment</h4>
 	<p>Type your comment bellow</p>
-	<form>
-	  {{ form.csrf_token }}
-	  <p>
-	  {{ form.textarea(placeholder="textarea", class="form-control") }}
-	  </p>
-	</form>
-</div>
-<div class="form-group">
-	<div class="col-md-3">
-		<button type="submit" class="btn btn-primary btn-block">Ansible Run</button>
-	</div>
-</div>
+    	{{ form.textarea(placeholder="textarea", class="form-control") }}
+    </p>
+	<button class="btn btn-sm btn-success" type="submit">Ansible Run</button>
+</form>
 
 {% endblock %}

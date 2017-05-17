@@ -6,12 +6,12 @@ app = Flask(__name__)
 app.debug = True
 app.secret_key = 's3cr3t'
 
-# WTF_CSRF_ENABLED = False
-# SECRET_KEY = 'my_precious'
 
-@app.route("/")
+@app.route("/", methods=['GET','POST'])
 def main():
     form = AnsibleForm(request.form)
+    if request.method == 'POST':
+       print request.form['hostname']
     return render_template('index.html', form=form)
 
 if __name__ == "__main__":
