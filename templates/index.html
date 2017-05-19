@@ -3,28 +3,41 @@
 {% block content %}
 
 <div class="header">
-	<h3 class="text-muted">Ansible Playbook Launcher</h3>
+    <h3 class="text-muted">Ansible Playbook Launcher</h3>
 </div>
 
 <form class="form-sigin" role="form" method="post" action="/">
 {{ form.csrf_token }}
-	<h4>Type your bootstrap host</h4>
-	<p>This host will be used for configuring your system</p>
+    <h4>Type your bootstrap host</h4>
+    <p>This host will be used for configuring your system</p>
     <p>
-    	{{ form.hostname(placeholder="hostname", class="form-control") }}
+    {{ form.hostname(placeholder="hostname", class="form-control") }}
+    <span class="error">
+        {% if form.hostname.errors %}
+            {% for error in form.hostname.errors %}
+                {{ error }}
+            {% endfor %}
+        {% endif %}
+    </span>
     </p>
-
     <p>
-	<h4>Select subsystem</h4>
-	<p>Select subsystem which you want to re-configure</p>
-		{{ form.subsystem(placeholder="subsystem", class="form-control") }}
+    <h4>Select subsystem</h4>
+    <p>Select subsystem which you want to re-configure</p>
+    {{ form.subsystem(placeholder="subsystem", class="form-control") }}
     </p>
     <p>
-	<h4>Comment</h4>
-	<p>Type your comment bellow</p>
-    	{{ form.textarea(placeholder="textarea", class="form-control") }}
+    <h4>Comment</h4>
+    <p>Type your comment bellow</p>
+    {{ form.textarea(placeholder="textarea", class="form-control") }}
+    <span class="error">
+        {% if form.textarea.errors %}
+            {% for error in form.textarea.errors %}
+                {{ error }}
+            {% endfor %}
+        {% endif %}
+    </span>
     </p>
-	<button class="btn btn-sm btn-success" type="submit">Ansible Run</button>
+    <button class="btn btn-sm btn-success" type="submit">Ansible Run</button>
 </form>
 
 {% endblock %}
