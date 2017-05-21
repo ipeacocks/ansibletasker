@@ -94,5 +94,5 @@ ENV/
 .DS_Store
 htmlcov
 .coverage
-
 pip-selfcheck.json
+*.retry

@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, Response
 import time
+import subprocess
+
+
 from forms import AnsibleForm
 
 
@@ -14,18 +17,28 @@ def main():
     form = AnsibleForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
-            # print(request.form['hostname'])
-            return redirect(url_for('output'))
+            my_host = request.form['hostname']
+            return redirect(url_for('output', host=my_host))
     return render_template('index.html', form=form, error=error)
 
 
-@app.route("/output")
+@app.route('/output')
 def output():
+    host = request.args['host']
     def inner():
-        for x in range(100):
+        ansible_command="ansible-playbook -i ansible/hosts ansible/user.yml --limit {}".format(host)
+        proc = subprocess.Popen(
+            [ansible_command],
+            shell=True,
+            stdout=subprocess.PIPE,
+            universal_newlines=True
+        )
+
+        for line in iter(proc.stdout.readline, ''):
             time.sleep(1)
-            yield '%s<br/>\n' % x
-    return Response(inner(), mimetype='text/html')  # text/html is required for most browsers to show the partial page immediately
+            yield line.rstrip()+'<br/>\n'
+
+    return Response(inner(), mimetype='text/html')
 
 
 if __name__ == "__main__":
