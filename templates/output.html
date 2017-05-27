@@ -10,7 +10,7 @@
     var output = document.getElementById('output');
 
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '{{ url_for('stream') }}');
+    xhr.open('GET', '{{ url_for('stream', host = request.args['host']) }}');
     xhr.send();
     var position = 0;
 
