@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import time
 import subprocess
-from math import sqrt
 from time import sleep
 
 
@@ -30,7 +28,7 @@ def index():
     return render_template('output.html')
 
 
-@app.route('/stream_sqrt')
+@app.route('/ansible_stream')
 def stream():
     host = session['host']
     def generate():
