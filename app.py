@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, Response
+from flask import Flask, render_template, request, redirect, url_for, session
 import time
 import subprocess
 from math import sqrt
@@ -19,8 +19,8 @@ def main():
     form = AnsibleForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
-            host = request.form['hostname']
-            return redirect(url_for('index', host=host))
+            session['host'] = request.form['hostname']
+            return redirect(url_for('index'))
     return render_template('index.html', form=form, error=error)
 
 
@@ -32,9 +32,9 @@ def index():
 
 @app.route('/stream_sqrt')
 def stream():
-    host = request.args['host']
+    host = session['host']
     def generate():
-        ansible_command="ansible-playbook -i ansible/hosts ansible/user.yml --limit {}".format(host)
+        ansible_command="ansible-playbook -vv -i ansible/hosts ansible/user.yml --limit {}".format(host)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,
@@ -42,7 +42,7 @@ def stream():
             universal_newlines=True
         )
         for line in iter(proc.stdout.readline, ''):
-            sleep(1)
+            sleep(0.5)
             yield '{}\n'.format(line.rstrip())
             
     return app.response_class(generate(), mimetype='text/plain')
