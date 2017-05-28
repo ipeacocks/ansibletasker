@@ -2,10 +2,8 @@
 
 {% block content %}
 
-<!-- <p><span id="latest"></span></p> -->
 <p><span id="output"></span></p>
 <script>
-    // var latest = document.getElementById('latest');
     var output = document.getElementById('output');
 
     var xhr = new XMLHttpRequest();
@@ -20,8 +18,7 @@
         // messages end with a newline, so split will always show one extra empty message at the end
         var messages = xhr.responseText.split('\n');
         messages.slice(position, -1).forEach(function(value) {
-            // latest.textContent = value;  // update the latest value in place
-            // // build and append a new item to a list to log all output
+            // build and append a new item to a list to log all output
             var item = document.createElement('p');
             item.textContent = value;
             output.appendChild(item);
@@ -36,7 +33,6 @@
         // stop checking once the response has ended
         if (xhr.readyState == XMLHttpRequest.DONE) {
             clearInterval(timer);
-            output.textContent = 'Done';
         }
     }, 1000);
 </script>
