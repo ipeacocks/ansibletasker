@@ -2,3 +2,7 @@
   color: red;
   font-size: .8em;
 }
+
+.output {
+word-wrap: break-word;
+}
