@@ -2,39 +2,47 @@
 
 {% block content %}
 
-<p><span class="output" id="output"></span></p>
-<script>
-    var output = document.getElementById('output');
+<div class="col-md-3">
+    <p><a href="/" class="btn btn-primary btn-block " role="button">Back</a></p>
+</div>
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '{{ url_for('stream') }}');
-    xhr.send();
-    var position = 0;
+<div class="col-md-12">
+    <p><span class="output" id="output"></span></p>
+    <script>
+        var output = document.getElementById('output');
 
-    function handleNewData() {
-        // the response text include the entire response so far
-        // split the messages, then take the messages that haven't been handled yet
-        // position tracks how many messages have been handled
-        // messages end with a newline, so split will always show one extra empty message at the end
-        var messages = xhr.responseText.split('\n');
-        messages.slice(position, -1).forEach(function(value) {
-            // build and append a new item to a list to log all output
-            var item = document.createElement('p');
-            item.textContent = value;
-            output.appendChild(item);
-        });
-        position = messages.length - 1;
-    }
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '{{ url_for('stream') }}');
+        xhr.send();
+        var position = 0;
 
-    var timer;
-    timer = setInterval(function() {
-        // check the response for new data
-        handleNewData();
-        // stop checking once the response has ended
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-            clearInterval(timer);
+        function handleNewData() {
+            // the response text include the entire response so far
+            // split the messages, then take the messages that haven't been handled yet
+            // position tracks how many messages have been handled
+            // messages end with a newline, so split will always show one extra empty message at the end
+            var messages = xhr.responseText.split('\n');
+            messages.slice(position, -1).forEach(function(value) {
+                // build and append a new item to a list to log all output
+                var item = document.createElement('p');
+                item.textContent = value;
+                output.appendChild(item);
+            });
+            position = messages.length - 1;
         }
-    }, 1000);
-</script>
+
+        var timer;
+        timer = setInterval(function() {
+            // check the response for new data
+            handleNewData();
+            // stop checking once the response has ended
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                clearInterval(timer);
+            }
+        }, 1000);
+
+    </script>
+
+</div>
 
 {% endblock %}
