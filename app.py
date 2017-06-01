@@ -32,7 +32,7 @@ def index():
 def stream():
     host = session['host']
     def generate():
-        ansible_command="ansible-playbook -vv -i ansible/hosts ansible/user.yml --limit {}".format(host)
+        ansible_command = "ansible-playbook -vv -i ansible/hosts ansible/user.yml --limit {}".format(host)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,
@@ -40,7 +40,7 @@ def stream():
             universal_newlines=True
         )
         for line in iter(proc.stdout.readline, ''):
-            sleep(0.1)
+            sleep(0.5)
             yield '{}\n'.format(line.rstrip())
             
     return app.response_class(generate(), mimetype='text/plain')
