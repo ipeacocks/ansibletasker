@@ -29,9 +29,9 @@
         </p>
     </div>
     <div class="col-md-12">
-        <p>
         <h4>Comment</h4>
         <p>Type your comment bellow</p>
+        <p>
         {{ form.textarea(placeholder="textarea", class="form-control") }}
         <span class="error">
             {% if form.textarea.errors %}
@@ -43,7 +43,8 @@
         </p>
     </div>
     <div class="col-md-3">
-        <button class="btn btn-primary btn-block" type="submit">Ansible Run</button>
+        <br>
+        <button class="btn btn-primary btn-block" type="submit">Ansible Run <span class="glyphicon glyphicon-chevron-right"></span></button>
     </div>
 </form>
 
