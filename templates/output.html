@@ -3,10 +3,10 @@
 {% block content %}
 
 <div id="div1" class="col-md-3">
-    <p><a href="/" class="btn btn-primary btn-block" role="button">
+<!--     <p><a href="/" class="btn btn-primary btn-block" role="button">
       <span class="glyphicon glyphicon-chevron-left"></span> Back
     </a>
-  </p>
+  </p> -->
 </div>
 
 <div class="col-md-12">
@@ -19,6 +19,7 @@
         xhr.open('GET', '{{ url_for('stream') }}');
         xhr.send();
         var position = 0;
+        
 
         function handleNewData() {
             // the response text include the entire response so far
@@ -33,6 +34,7 @@
                 output.appendChild(item);
             });
             position = messages.length - 1;
+
         }
 
         var timer;
@@ -42,7 +44,16 @@
             // stop checking once the response has ended
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 clearInterval(timer);
+
+                var para = document.createElement('p');
+                para.className = "btn btn-primary btn-block";
+                para.innerHTML = "Back";
+
+                var element = document.getElementById("div1");
+                element.appendChild(para);
+
             }
+
         }, 1000);
 
     </script>
