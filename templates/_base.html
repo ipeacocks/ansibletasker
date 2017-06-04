@@ -9,9 +9,8 @@
 
     <title>Ansible Tasker</title>
 
-    <!-- styles -->
-    <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jumbotron-narrow.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
   </head>
@@ -27,7 +26,7 @@
       <footer class="footer">
         <p>&copy; <a href="http://example.com/">ipeacocks</a> 2017</p>
       </footer>
-    </div> <!--/.container -->
+    </div>
 
   </body>
 </html>

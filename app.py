@@ -18,12 +18,12 @@ def main():
     if request.method == 'POST':
         if form.validate_on_submit():
             session['host'] = request.form['hostname']
-            return redirect(url_for('index'))
-    return render_template('index.html', form=form, error=error)
+            return redirect(url_for('output'))
+    return render_template('main.html', form=form, error=error)
 
 
 @app.route('/output')
-def index():
+def output():
     # render the template (below) that will use JavaScript to read the stream
     return render_template('output.html')
 
@@ -32,7 +32,7 @@ def index():
 def stream():
     host = session['host']
     def generate():
-        ansible_command = "ansible-playbook -vv -i ansible/hosts ansible/user.yml --limit {}".format(host)
+        ansible_command = "ansible-playbook -vvv -i ansible/hosts ansible/user.yml --limit {}".format(host)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,
