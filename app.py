@@ -7,8 +7,7 @@ from forms import AnsibleForm
 
 
 app = Flask(__name__)
-app.debug = True
-app.secret_key = 's3cr3t'
+app.config.from_pyfile('_config.py')
 
 
 @app.route("/", methods=['GET','POST'])
@@ -18,6 +17,7 @@ def main():
     if request.method == 'POST':
         if form.validate_on_submit():
             session['host'] = request.form['hostname']
+            session['subsystem'] = request.form['subsystem']
             return redirect(url_for('output'))
     return render_template('main.html', form=form, error=error)
 
@@ -31,8 +31,10 @@ def output():
 @app.route('/ansible_stream')
 def stream():
     host = session['host']
+    subsystem = session['subsystem']
+
     def generate():
-        ansible_command = "ansible-playbook -vvv -i ansible/hosts ansible/user.yml --limit {}".format(host)
+        ansible_command = "ansible-playbook -vvv -i ansible/hosts ansible/{}.yml --limit {}".format(subsystem, host)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,

@@ -16,6 +16,6 @@ class AnsibleForm(FlaskForm):
     	'subsystem',
         validators=[DataRequired()],
         choices=[
-            ('1', 'bosh'), ('2', 'cloudfoundry'), ('3', 'redis')
+            ('bosh', 'bosh'), ('cloudfoundry', 'cloudfoundry'), ('redis', 'redis')
         ]
     )
