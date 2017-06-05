@@ -8,6 +8,8 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 DATABASE = 'ansibletasker.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 's3cr3t'
 DEBUG = True
