@@ -10,14 +10,20 @@ class History(db.Model):
     __tablename__ = "history"
 
     task_id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date, default=datetime.datetime.utcnow())
     username = db.Column(db.String, nullable=False)
-    command = db.Column(db.String, nullable=False)
-    launched_date = db.Column(db.Date, default=datetime.datetime.utcnow())
+    hostname = db.Column(db.String, nullable=False)
+    playbook = db.Column(db.String, nullable=False)
+    output = db.Column(db.String, nullable=False)
 
-    def __init__(self, username, command, launched_date):
+
+    def __init__(self, date, username, hostname, playbook, output):
+        self.date = date
+        self.hostname = hostname
         self.username = username
-        self.command = command
-        self.launched_date = launched_date
+        self.playbook = playbook
+        self.output = output
+
 
     def __repr__(self):
         return '<username {0}>'.format(self.username)

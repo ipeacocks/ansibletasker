@@ -22,12 +22,14 @@ def main():
     if request.method == 'POST':
         if form.validate_on_submit():
             session['hostname'] = form.hostname.data
-            session['subsystem'] = form.subsystem.data
-            ansible_command = "ansible-playbook -vvv -i ansible/hosts ansible/{}.yml --limit {}".format(form.subsystem.data, form.hostname.data)
+            session['playbook'] = form.playbook.data
+            # ansible_command = "ansible-playbook -vvv -i ansible/hosts ansible/{}.yml --limit {}".format(form.playbook.data, form.hostname.data)
             new_record = History(
+                datetime.datetime.utcnow(),
                 'admin',
-                ansible_command,
-                datetime.datetime.utcnow()
+                form.hostname.data,
+                form.playbook.data,
+                'No config found'
             )
             db.session.add(new_record)
             db.session.commit()
@@ -44,10 +46,10 @@ def output():
 @app.route('/ansible_stream')
 def stream():
     hostname = session['hostname']
-    subsystem = session['subsystem']
+    playbook = session['playbook']
 
     def generate():
-        ansible_command = "ansible-playbook -vvv -i ansible/hosts ansible/{}.yml --limit {}".format(subsystem, hostname)
+        ansible_command = "ansible-playbook -vvv -i ansible/hosts ansible/{} --limit {}".format(playbook, hostname)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,

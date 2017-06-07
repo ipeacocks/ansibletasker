@@ -12,10 +12,10 @@ class AnsibleForm(FlaskForm):
         'textarea', render_kw={"rows": 4},
         validators=[DataRequired(), Length(max=140)]
     )
-    subsystem = SelectField(
-    	'subsystem',
+    playbook = SelectField(
+    	'playbook',
         validators=[DataRequired()],
         choices=[
-            ('bosh', 'Bosh'), ('cloudfoundry', 'Cloud Foundry'), ('redis', 'Redis')
+            ('bosh.yml', 'Bosh'), ('cloudfoundry.yml', 'Cloud Foundry'), ('redis.yml', 'Redis')
         ]
     )
