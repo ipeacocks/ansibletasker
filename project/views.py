@@ -23,7 +23,6 @@ def main():
         if form.validate_on_submit():
             session['hostname'] = form.hostname.data
             session['playbook'] = form.playbook.data
-            # ansible_command = "ansible-playbook -vvv -i ansible/hosts ansible/{}.yml --limit {}".format(form.playbook.data, form.hostname.data)
             new_record = History(
                 datetime.datetime.utcnow(),
                 'admin',
@@ -61,6 +60,11 @@ def stream():
             yield '{}\n'.format(line.rstrip())
             
     return app.response_class(generate(), mimetype='text/plain')
+
+
+@app.route("/history")
+def history():
+    return render_template('history.html')
 
 
 if __name__ == "__main__":
