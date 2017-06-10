@@ -1,8 +1,11 @@
 .error {
-  color: red;
-  font-size: .8em;
+    color: red;
+    font-size: .8em;
 }
 
 .output {
-word-wrap: break-word;
+    word-wrap: break-word;
+    background-color: #002B36;
+    color: #C2D7D3;
+    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }
