@@ -31,7 +31,7 @@
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 clearInterval(timer);
 
-                document.getElementById("back_button").innerHTML ="<a href='/' class='btn btn-primary btn-block' role='button'><span class='glyphicon glyphicon-chevron-left'></span> Back</a>";
+                document.getElementById("back_button").innerHTML ="<a href='/' class='btn btn-primary button_style' role='button'><span class='glyphicon glyphicon-chevron-left'></span> Back</a>";
 
             }
 

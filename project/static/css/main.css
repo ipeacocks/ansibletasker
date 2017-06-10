@@ -9,3 +9,7 @@
     color: #C2D7D3;
     font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }
+
+.button_style {
+    width: 160px !important;
+}
