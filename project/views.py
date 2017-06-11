@@ -62,9 +62,16 @@ def stream():
     return app.response_class(generate(), mimetype='text/plain')
 
 
+def histories():
+    return db.session.query(History).order_by(History.date.asc())
+
+
 @app.route("/history")
 def history():
-    return render_template('history.html')
+    return render_template(
+        'history.html',
+        histories=histories()
+    )
 
 
 @app.route("/about")
