@@ -96,4 +96,4 @@ htmlcov
 .coverage
 pip-selfcheck.json
 *.retry
-*.db
+project/*.db
