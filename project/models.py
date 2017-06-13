@@ -10,7 +10,7 @@ class History(db.Model):
     __tablename__ = "history"
 
     task_id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.Date, default=datetime.datetime.utcnow())
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow())
     username = db.Column(db.String, nullable=False)
     hostname = db.Column(db.String, nullable=False)
     playbook = db.Column(db.String, nullable=False)

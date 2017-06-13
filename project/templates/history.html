@@ -23,7 +23,7 @@
         {% for history in histories %}
             <tr>
                 <td>{{ history.task_id }}</td>
-                <td>{{ history.date }}</td>
+                <td>{{ history.date.strftime("%d/%m/%y %H:%M") }} UTC</td>
                 <td>{{ history.hostname }}</td>
                 <td>{{ history.username }}</td>
                 <td>{{ history.playbook }}</td>
