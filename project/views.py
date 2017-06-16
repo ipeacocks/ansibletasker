@@ -23,15 +23,15 @@ def main():
         if form.validate_on_submit():
             session['hostname'] = form.hostname.data
             session['playbook'] = form.playbook.data
-            new_record = History(
-                datetime.datetime.utcnow(),
-                'admin',
-                form.hostname.data,
-                form.playbook.data,
-                'No config found'
-            )
-            db.session.add(new_record)
-            db.session.commit()
+            # new_record = History(
+            #     datetime.datetime.utcnow(),
+            #     'admin',
+            #     form.hostname.data,
+            #     form.playbook.data,
+            #     'No config found'
+            # )
+            # db.session.add(new_record)
+            # db.session.commit()
             return redirect(url_for('output'))
     return render_template('main.html', form=form, error=error)
 
@@ -55,10 +55,23 @@ def stream():
             stdout=subprocess.PIPE,
             universal_newlines=True
         )
+
+        string = ""
         for line in iter(proc.stdout.readline, ''):
             # sleep(0.5)
+            string+=str(line)
             yield '{}\n'.format(line.rstrip())
             
+        new_record = History(
+            datetime.datetime.utcnow(),
+            'admin',
+            hostname,
+            playbook,
+            string
+        )
+        db.session.add(new_record)
+        db.session.commit()
+
     return app.response_class(generate(), mimetype='text/plain')
 
 
