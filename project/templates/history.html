@@ -27,25 +27,26 @@
                 <td>{{ history.hostname }}</td>
                 <td>{{ history.username }}</td>
                 <td>{{ history.playbook }}</td>
-                <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myOutput">Output</button></td>
+                <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myOutput{{ history.task_id }}">Output</button></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
 
+{% for history in histories %}
  <!-- Modal -->
-  <div class="modal fade" id="myOutput" role="dialog">
-    <div class="modal-dialog">
+  <div class="modal fade" id="myOutput{{ history.task_id }}" role="dialog">
+    <div class="modal-dialog modal-lg">
 
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">Task Output</h4>
         </div>
         <div class="modal-body">
-          <p>Some text in the modal.</p>
+          <p>{{ history.output }}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -54,5 +55,6 @@
 
     </div>
   </div>
+{% endfor %}
 
 {% endblock %}
