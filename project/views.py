@@ -23,15 +23,7 @@ def main():
         if form.validate_on_submit():
             session['hostname'] = form.hostname.data
             session['playbook'] = form.playbook.data
-            # new_record = History(
-            #     datetime.datetime.utcnow(),
-            #     'admin',
-            #     form.hostname.data,
-            #     form.playbook.data,
-            #     'No config found'
-            # )
-            # db.session.add(new_record)
-            # db.session.commit()
+
             return redirect(url_for('output'))
     return render_template('main.html', form=form, error=error)
 
