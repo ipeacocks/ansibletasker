@@ -40,7 +40,7 @@ def stream():
     playbook = session['playbook']
 
     def generate():
-        ansible_command = "ansible-playbook -vvv -i ../ansible/hosts ../ansible/{} --limit {}".format(playbook, hostname)
+        ansible_command = "ansible-playbook -v -i ../ansible/hosts ../ansible/{} --limit {}".format(playbook, hostname)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,
@@ -51,7 +51,7 @@ def stream():
         string = ""
         for line in iter(proc.stdout.readline, ''):
             # sleep(0.5)
-            string+=str(line)
+            string+=str('<p>'+line+'</p>')
             yield '{}\n'.format(line.rstrip())
             
         new_record = History(
