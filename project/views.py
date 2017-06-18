@@ -40,7 +40,7 @@ def stream():
     playbook = session['playbook']
 
     def generate():
-        ansible_command = "ansible-playbook -v -i ../ansible/hosts ../ansible/{} --limit {}".format(playbook, hostname)
+        ansible_command = "ansible-playbook -vv -i ../ansible/hosts ../ansible/{} --limit {}".format(playbook, hostname)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,

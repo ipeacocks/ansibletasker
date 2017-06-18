@@ -13,10 +13,3 @@
 .button_style {
     width: 160px !important;
 }
-
-.output2 {
-    word-wrap: break-word;
-    background-color: #002B36;
-    color: #C2D7D3;
-    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-}
