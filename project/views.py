@@ -54,15 +54,16 @@ def stream():
             string+=str('<p>'+line+'</p>')
             yield '{}\n'.format(line.rstrip())
             
-        new_record = History(
-            datetime.datetime.utcnow(),
-            'admin',
-            hostname,
-            playbook,
-            string
-        )
-        db.session.add(new_record)
-        db.session.commit()
+        with app.app_context():    
+            new_record = History(
+                datetime.datetime.utcnow(),
+                'admin',
+                hostname,
+                playbook,
+                string
+            )
+            db.session.add(new_record)
+            db.session.commit()
 
     return app.response_class(generate(), mimetype='text/plain')
 
