@@ -18,43 +18,43 @@
 
 <form class="form-sigin" role="form" method="post" action="/">
 {{ form.csrf_token }}
-    <div class="col-md-6">
-        <h4>Type your bootstrap host</h4>
-        <p>This host will be used for configuring your system</p>
-        <p>
-        {{ form.hostname(placeholder="hostname", class="form-control") }}
-        <span class="error">
-            {% if form.hostname.errors %}
-                {% for error in form.hostname.errors %}
-                    {{ error }}
-                {% endfor %}
-            {% endif %}
-        </span>
-        </p>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Type your bootstrap host</h4>
+            <p>This host will be used for configuring your system</p>
+            <p>
+            {{ form.hostname(placeholder="hostname", class="form-control") }}
+            <span class="error">
+                {% if form.hostname.errors %}
+                    {% for error in form.hostname.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+            </span>
+            </p>
+        </div>
+        <div class="col-md-6">
+            <h4>Select playbook</h4>
+            <p>Select subsystem which you want to re-configure</p>
+            {{ form.playbook(class="form-control") }}
+            </p>
+        </div>
     </div>
-    <div class="col-md-6">
-        <h4>Select playbook</h4>
-        <p>Select subsystem which you want to re-configure</p>
-        {{ form.playbook(placeholder="playbook", class="form-control") }}
-        </p>
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Output</h4>
+            <p>Select debug level</p>
+            <p>
+            {{ form.output_level(class="form-control") }}
+            </p>
+        </div>
     </div>
-    <div class="col-md-12">
-        <h4>Comment</h4>
-        <p>Type your comment bellow</p>
-        <p>
-        {{ form.textarea(placeholder="textarea", class="form-control") }}
-        <span class="error">
-            {% if form.textarea.errors %}
-                {% for error in form.textarea.errors %}
-                    {{ error }}
-                {% endfor %}
-            {% endif %}
-        </span>
-        </p>
-    </div>
-    <div class="col-md-3">
-        <br>
-        <button class="btn btn-primary button_style" type="submit">Ansible Run <span class="glyphicon glyphicon-chevron-right"></span></button>
+
+    <div class="row">
+        <div class="col-md-3">
+            <br>
+            <button class="btn btn-primary button_style" type="submit">Ansible Run <span class="glyphicon glyphicon-chevron-right"></span></button>
+        </div>
     </div>
 </form>
 

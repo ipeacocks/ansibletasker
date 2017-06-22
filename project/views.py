@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-# from flask_sqlalchemy import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 
 import subprocess
@@ -21,8 +20,10 @@ def main():
     form = AnsibleForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
+
             session['hostname'] = form.hostname.data
             session['playbook'] = form.playbook.data
+            session['output_level'] = form.output_level.data
 
             return redirect(url_for('output'))
     return render_template('main.html', form=form, error=error)
@@ -38,9 +39,10 @@ def output():
 def stream():
     hostname = session['hostname']
     playbook = session['playbook']
+    output_level = session['output_level']
 
     def generate():
-        ansible_command = "ansible-playbook -vv -i ../ansible/hosts ../ansible/{} --limit {}".format(playbook, hostname)
+        ansible_command = "ansible-playbook {} -i ../ansible/hosts ../ansible/{} --limit {}".format(output_level, playbook, hostname)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,
@@ -50,7 +52,7 @@ def stream():
 
         string = ""
         for line in iter(proc.stdout.readline, ''):
-            # sleep(0.5)
+            #sleep(0.1)
             string+=str('<p>'+line+'</p>')
             yield '{}\n'.format(line.rstrip())
             

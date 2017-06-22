@@ -8,14 +8,17 @@ class AnsibleForm(FlaskForm):
         'hostname',
         validators=[DataRequired(), Length(min=6, max=25)]
     )
-    textarea = TextAreaField(
-        'textarea', render_kw={"rows": 4},
-        validators=[DataRequired(), Length(max=140)]
-    )
     playbook = SelectField(
-    	'playbook',
+        'playbook',
         validators=[DataRequired()],
         choices=[
             ('bosh.yml', 'Bosh'), ('cloudfoundry.yml', 'Cloud Foundry'), ('redis.yml', 'Redis')
+        ]
+    )
+    output_level = SelectField(
+        'output_level',
+        validators=[DataRequired()],
+        choices=[
+            ('-v', '-v'), ('-vv', '-vv'), ('-vvv', '-vvv')
         ]
     )
