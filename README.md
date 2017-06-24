@@ -5,10 +5,10 @@
 <p>Project page <a href="https://github.com/ipeacocks/ansibletasker">on Github</a></p>
 
 <p align="center">
-  <img src="screenshorts/2.png" width="450"/>
-  <img src="screenshorts/3.png" width="450"/>
-  <img src="screenshorts/4.png" width="450"/>
-  <img src="screenshorts/5.png" width="450"/>
+  <img src="screenshorts/2.png" width="400"/>
+  <img src="screenshorts/3.png" width="400"/>
+  <img src="screenshorts/4.png" width="400"/>
+  <img src="screenshorts/5.png" width="400"/>
 </p>
 
 ## Requirements
