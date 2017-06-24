@@ -2,10 +2,13 @@
 
 {% block content %}
 
-<p id="back_button"></p>
-
-<div class="col-md-12 output" id="output">
-    <br>
+<div class="row">
+	<p id="back_button"></p>
+</div>
+<br>
+<div class="row output_field">
+	<div class="output_text" id="output">
+	</div>
 </div>
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>

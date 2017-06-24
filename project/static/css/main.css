@@ -3,13 +3,26 @@
     font-size: .8em;
 }
 
-.output {
-    word-wrap: break-word;
+.output_field {
     background-color: #002B36;
-    color: #C2D7D3;
-    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+    border-radius: 5px;
 }
 
 .button_style {
     width: 160px !important;
+}
+
+.output_text {
+    word-wrap: break-word;
+    background-color: #002B36;
+    color: #C2D7D3;
+    margin: 10px;
+    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+.output_history {
+    word-wrap: break-word;
+    background-color: #002B36;
+    color: #C2D7D3;
+    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }

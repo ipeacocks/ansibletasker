@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, \
+    url_for, session
 from flask_sqlalchemy import SQLAlchemy
 
 import subprocess
@@ -42,7 +43,8 @@ def stream():
     output_level = session['output_level']
 
     def generate():
-        ansible_command = "ansible-playbook {} -i ../ansible/hosts ../ansible/{} --limit {}".format(output_level, playbook, hostname)
+        ansible_command = "ansible-playbook {} -i ../ansible/hosts \
+        ../ansible/{} --limit {}".format(output_level, playbook, hostname)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,
