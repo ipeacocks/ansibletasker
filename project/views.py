@@ -15,6 +15,12 @@ db = SQLAlchemy(app)
 
 from models import History
 
+
+@app.route("/login")
+def login():
+    return render_template('login.html')
+
+
 @app.route("/", methods=['GET','POST'])
 def main():
     error = None

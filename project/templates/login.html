@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="col-md-6 col-md-offset-3 centered">
+    <p class="lead">Login</p>
+    <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="glyphicon glyphicon-user"></i>
+                </div>
+                <input type="text" class="form-control" id="email" placeholder="login" value="">
+            </div>
+            <br>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="glyphicon glyphicon-lock"></i>
+                </div>
+                <input type="password" class="form-control" id="password" placeholder="password" value="">
+            </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary button_style">
+        Submit <i class="glyphicon glyphicon-log-in"></i>
+    </button>
+</div>
+
+{% endblock %}
