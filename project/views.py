@@ -6,7 +6,7 @@ import subprocess
 import datetime
 from time import sleep
 
-from forms import AnsibleForm
+from forms import AnsibleForm, LoginForm
 
 
 app = Flask(__name__)
@@ -18,7 +18,9 @@ from models import History
 
 @app.route("/login")
 def login():
-    return render_template('login.html')
+    error = None
+    form = LoginForm(request.form)
+    return render_template('login.html', form=form, error=error)
 
 
 @app.route("/", methods=['GET','POST'])

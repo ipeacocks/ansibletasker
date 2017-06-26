@@ -2,27 +2,43 @@
 
 {% block content %}
 
-<div class="col-md-6 col-md-offset-3 centered">
-    <p class="lead">Login</p>
-    <div class="form-group">
+<form class="form-sigin" role="form" method="post" action="/">
+    {{ form.csrf_token }}
+    <div class="col-md-6 col-md-offset-3 centered">
+        <!--     <p class="lead">Login</p> -->
+        <h3 class="text-muted">Login</h3>
+            <br>
             <div class="input-group">
                 <div class="input-group-addon">
                     <i class="glyphicon glyphicon-user"></i>
                 </div>
-                <input type="text" class="form-control" id="email" placeholder="login" value="">
+                {{ form.name(placeholder="name", class="form-control") }}
             </div>
+            <span class="error">
+                {% if form.name.errors %}
+                    {% for error in form.name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+            </span>
             <br>
             <div class="input-group">
                 <div class="input-group-addon">
                     <i class="glyphicon glyphicon-lock"></i>
                 </div>
-                <input type="password" class="form-control" id="password" placeholder="password" value="">
+                {{ form.password(placeholder="password", class="form-control") }}
             </div>
-    </div>
+            <span class="error">
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+            </span>
 
-    <button type="submit" class="btn btn-primary button_style">
-        Submit <i class="glyphicon glyphicon-log-in"></i>
-    </button>
-</div>
+            <br>
+            <button class="btn btn-primary button_style" type="submit">Submit <span class="glyphicon glyphicon-log-in"></span></button>
+    </div>
+</form>
 
 {% endblock %}
