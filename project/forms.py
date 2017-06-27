@@ -24,10 +24,10 @@ class AnsibleForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     name = StringField(
-        'Username',
+        'name',
         validators=[DataRequired()]
     )
     password = PasswordField(
-        'Password',
+        'password',
         validators=[DataRequired()]
     )
