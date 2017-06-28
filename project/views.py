@@ -107,10 +107,10 @@ def stream():
         with app.app_context():    
             new_record = History(
                 datetime.datetime.utcnow(),
-                'admin',
                 hostname,
                 playbook,
-                string
+                string,
+                'admin'
             )
             db.session.add(new_record)
             db.session.commit()
