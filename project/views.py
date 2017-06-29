@@ -46,7 +46,6 @@ def login_required(test):
 def logout():
     session.pop('logged_in', None)
     session.pop('user_id', None)
-    session.pop('role', None)
     session.pop('name', None)
     flash('Goodbye!')
     return redirect(url_for('login'))
@@ -96,7 +95,7 @@ def stream():
     hostname = session['hostname']
     playbook = session['playbook']
     output_level = session['output_level']
-    username = session['name']
+    username = session['user_id']
 
     def generate():
         ansible_command = "ansible-playbook {} -i ../ansible/hosts \

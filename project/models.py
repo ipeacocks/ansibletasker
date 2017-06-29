@@ -36,7 +36,7 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     history = db.relationship('History', backref='poster')
 
-    def __init__(self, name=None, password=None, role=None):
+    def __init__(self, name=None, password=None):
         self.name = name
         self.password = password
 
