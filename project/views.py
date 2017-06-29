@@ -21,7 +21,7 @@ app = Flask(__name__)
 app.config.from_pyfile('_config.py')
 db = SQLAlchemy(app)
 
-from models import History
+from models import History, User
 
 ########################## 
 #### helper functions #### 
@@ -41,17 +41,28 @@ def login_required(test):
 #### routes #### 
 ################
 
+@app.route('/logout')
+@login_required
+def logout():
+    session.pop('logged_in', None)
+    session.pop('user_id', None)
+    session.pop('role', None)
+    session.pop('name', None)
+    flash('Goodbye!')
+    return redirect(url_for('login'))
+
+
 @app.route("/login", methods=['GET','POST'])
 def login():
     error = None
     form = LoginForm(request.form)
     if request.method == 'POST':
-        if form.name.data == 'admin' and form.password.data == 'admin':
+        user = User.query.filter_by(name=request.form['name']).first()
+        if user and user.password == request.form['password']:
             session['logged_in'] = True
-            # session['user_id'] = user.id
-            # session['role'] = user.role
-            # session['name'] = user.name
-            # flash('Welcome!')
+            session['user_id'] = user.id
+            session['name'] = user.name
+            flash('Welcome!')
             return redirect(url_for('main'))
         else:
             error = 'Invalid username or password.'
@@ -65,11 +76,9 @@ def main():
     form = AnsibleForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
-
             session['hostname'] = form.hostname.data
             session['playbook'] = form.playbook.data
             session['output_level'] = form.output_level.data
-
             return redirect(url_for('output'))
     return render_template('main.html', form=form, error=error)
 
@@ -87,6 +96,7 @@ def stream():
     hostname = session['hostname']
     playbook = session['playbook']
     output_level = session['output_level']
+    username = session['name']
 
     def generate():
         ansible_command = "ansible-playbook {} -i ../ansible/hosts \
@@ -98,10 +108,10 @@ def stream():
             universal_newlines=True
         )
 
-        string = ""
+        output = ""
         for line in iter(proc.stdout.readline, ''):
             #sleep(0.1)
-            string+=str('<p>'+line+'</p>')
+            output += str('<p>'+line+'</p>')
             yield '{}\n'.format(line.rstrip())
             
         with app.app_context():    
@@ -109,8 +119,8 @@ def stream():
                 datetime.datetime.utcnow(),
                 hostname,
                 playbook,
-                string,
-                'admin'
+                output,
+                username
             )
             db.session.add(new_record)
             db.session.commit()
