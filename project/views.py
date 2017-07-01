@@ -5,6 +5,7 @@
 from flask import Flask, render_template, request, redirect, \
     url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
 import subprocess
 import datetime
@@ -58,6 +59,8 @@ def login():
     if request.method == 'POST':
         user = User.query.filter_by(name=request.form['name']).first()
         if user and user.password == request.form['password']:
+        # if user and bcrypt.check_password_hash(user.password,
+        #             request.form['password']):
             session['logged_in'] = True
             session['user_id'] = user.id
             session['name'] = user.name
@@ -129,6 +132,16 @@ def stream():
 
 def histories():
     return db.session.query(History).order_by(History.date.asc())
+
+
+def list_users():
+    return db.session.query(User).order_by(User.name)
+
+
+@app.route("/users")
+@login_required
+def users():
+    return render_template('users.html', users=list_users())
 
 
 @app.route("/history")
