@@ -10,7 +10,7 @@ class History(db.Model):
     __tablename__ = "history"
 
     task_id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, default=datetime.datetime.utcnow())
+    task_date = db.Column(db.DateTime, default=datetime.datetime.utcnow())
     hostname = db.Column(db.String, nullable=False)
     playbook = db.Column(db.String, nullable=False)
     output = db.Column(db.String, nullable=False)
@@ -32,12 +32,15 @@ class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
+    create_date = db.Column(db.DateTime, default=datetime.datetime.utcnow())
     name = db.Column(db.String, unique=True, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
     history = db.relationship('History', backref='poster')
 
-    def __init__(self, name=None, password=None):
+    def __init__(self, name=None, email=None, password=None):
         self.name = name
+        self.email = email
         self.password = password
 
     def __repr__(self):

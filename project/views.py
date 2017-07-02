@@ -131,7 +131,7 @@ def stream():
 
 
 def list_histories():
-    return db.session.query(History).order_by(History.date.asc())
+    return db.session.query(History).order_by(History.task_date.asc())
 
 
 def list_users():

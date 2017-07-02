@@ -21,7 +21,7 @@
         <tbody>
         {% for history in histories %}
             <tr>
-                <td>{{ history.date.strftime("%d/%m/%y %H:%M") }}</td>
+                <td>{{ history.task_date.strftime("%d/%m/%y %H:%M") }}</td>
                 <td>{{ history.hostname }}</td>
                 <td>{{ history.poster.name }}</td>
                 <td>{{ history.playbook }}</td>
