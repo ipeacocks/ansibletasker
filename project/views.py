@@ -130,7 +130,7 @@ def stream():
     return app.response_class(generate(), mimetype='text/plain')
 
 
-def histories():
+def list_histories():
     return db.session.query(History).order_by(History.date.asc())
 
 
@@ -141,7 +141,10 @@ def list_users():
 @app.route("/users")
 @login_required
 def users():
-    return render_template('users.html', users=list_users())
+    return render_template(
+        'users.html',
+        users=list_users()
+    )
 
 
 @app.route("/history")
@@ -149,7 +152,7 @@ def users():
 def history():
     return render_template(
         'history.html',
-        histories=histories()
+        histories=list_histories()
     )
 
 
