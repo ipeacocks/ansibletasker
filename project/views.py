@@ -12,7 +12,7 @@ import datetime
 from functools import wraps
 from time import sleep
 
-from forms import AnsibleForm, LoginForm
+from forms import AnsibleForm, LoginForm, AddUserForm
 
 ################ 
 #### config #### 
@@ -141,10 +141,34 @@ def list_users():
 @app.route("/users")
 @login_required
 def users():
+    form = AddUserForm(request.form)
     return render_template(
         'users.html',
-        users=list_users()
+        users=list_users(),
+        form=form
     )
+
+
+@app.route("/add_user", methods=['GET','POST'])
+@login_required
+def add_user():
+    error = None
+    form = AddUserForm(request.form)
+    if request.method == 'POST':
+        # if form.validate_on_submit():
+        new_record = User(
+            datetime.datetime.utcnow(),
+            form.name.data,
+            form.email.data,
+            form.password.data
+        )
+        db.session.add(new_record)
+        db.session.commit()
+        flash('Added new user!')
+        return redirect(url_for('users'))
+    else:
+        error = 'Invalid username or password.'
+    return redirect(url_for('users'))
 
 
 @app.route("/history")

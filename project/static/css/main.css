@@ -12,6 +12,10 @@
     width: 145px !important;
 }
 
+.button_style_users {
+    width: 75px !important;
+}
+
 .output_text {
     word-wrap: break-word;
     background-color: #002B36;

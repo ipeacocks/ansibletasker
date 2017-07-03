@@ -31,3 +31,18 @@ class LoginForm(FlaskForm):
         'password',
         validators=[DataRequired()]
     )
+
+
+class AddUserForm(FlaskForm):
+    name = StringField(
+        'name',
+        validators=[DataRequired()]
+    )
+    email = StringField(
+        'email',
+        validators=[DataRequired()]
+    )
+    password = PasswordField(
+        'password',
+        validators=[DataRequired()]
+    )

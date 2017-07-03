@@ -16,8 +16,8 @@ class History(db.Model):
     output = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __init__(self, date, hostname, playbook, output, user_id):
-        self.date = date
+    def __init__(self, task_date, hostname, playbook, output, user_id):
+        self.task_date = task_date
         self.hostname = hostname
         self.playbook = playbook
         self.output = output
@@ -38,7 +38,8 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     history = db.relationship('History', backref='poster')
 
-    def __init__(self, name=None, email=None, password=None):
+    def __init__(self, create_date, name, email, password):
+        self.create_date = create_date
         self.name = name
         self.email = email
         self.password = password

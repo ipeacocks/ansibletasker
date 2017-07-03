@@ -20,12 +20,12 @@
         <tbody>
         {% for user in users %}
             <tr>
-              <td>{{ user.create_date }}</td>
+              <td>{{ user.create_date.strftime("%d/%m/%y %H:%M") }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
               <td>
                 <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button type="button" class="btn btn-default btn-sm button_style_users dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Edit <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu">
@@ -36,8 +36,45 @@
               </td>
             </tr>
         {% endfor %}
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="btn btn-primary btn-sm button_style_users" data-toggle="modal" data-target="#myOutput">New user</button></td>
+            </tr>
         </tbody>
     </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myOutput" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add new user</h4>
+      </div>
+      <form class="form-users" role="form" method="post" action="/add_user">
+        <div class="modal-body">
+            <p>
+            {{ form.name(placeholder="username", class="form-control") }}
+            </p>
+            <p>
+            {{ form.email(placeholder="email", class="form-control") }}
+            </p>
+            <p>
+            {{ form.password(placeholder="password", class="form-control") }}
+            </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" type="submit">Add</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
 </div>
 
 {% endblock %}
