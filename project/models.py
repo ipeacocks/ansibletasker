@@ -1,7 +1,7 @@
 # project/models.py
 
 
-from views import db
+from main import db
 import datetime
 
 

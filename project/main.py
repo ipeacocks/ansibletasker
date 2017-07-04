@@ -20,6 +20,8 @@ from forms import AnsibleForm, LoginForm, AddUserForm
 
 app = Flask(__name__)
 app.config.from_pyfile('_config.py')
+# $2b$12$/6k5KPJ.BjICuNh8AyrQZeb9JlsgBt3p/LrWEha6pkvnYs9SBc9u.
+bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 from models import History, User
@@ -58,9 +60,9 @@ def login():
     form = LoginForm(request.form)
     if request.method == 'POST':
         user = User.query.filter_by(name=request.form['name']).first()
-        if user and user.password == request.form['password']:
-        # if user and bcrypt.check_password_hash(user.password,
-        #             request.form['password']):
+        # if user and user.password == request.form['password']:
+        if user and bcrypt.check_password_hash(user.password,
+                    request.form['password']):
             session['logged_in'] = True
             session['user_id'] = user.id
             session['name'] = user.name
@@ -160,7 +162,7 @@ def add_user():
             datetime.datetime.utcnow(),
             form.name.data,
             form.email.data,
-            form.password.data
+            bcrypt.generate_password_hash(form.password.data)
         )
         db.session.add(new_record)
         db.session.commit()
