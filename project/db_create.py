@@ -1,7 +1,7 @@
 # db_create.py
 
 
-from views import db
+from main import db
 from models import History
 from datetime import date
 

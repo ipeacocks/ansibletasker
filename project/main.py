@@ -66,6 +66,7 @@ def login():
             session['logged_in'] = True
             session['user_id'] = user.id
             session['name'] = user.name
+            session['role'] = user.role
             flash('Welcome!')
             return redirect(url_for('main'))
         else:
@@ -162,7 +163,8 @@ def add_user():
             datetime.datetime.utcnow(),
             form.name.data,
             form.email.data,
-            bcrypt.generate_password_hash(form.password.data)
+            bcrypt.generate_password_hash(form.password.data),
+            'user'
         )
         db.session.add(new_record)
         db.session.commit()

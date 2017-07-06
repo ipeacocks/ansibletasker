@@ -37,12 +37,14 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
     history = db.relationship('History', backref='poster')
+    role = db.Column(db.String, default='user')
 
-    def __init__(self, create_date, name, email, password):
+    def __init__(self, create_date, name, email, password, role):
         self.create_date = create_date
         self.name = name
         self.email = email
         self.password = password
+        self.role = role
 
     def __repr__(self):
         return '<User {0}>'.format(self.name)

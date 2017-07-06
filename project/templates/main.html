@@ -5,7 +5,7 @@
 <div class="header clearfix row">
     <nav>
       <ul class="nav nav-pills pull-right">
-        {% if session.name == "admin" %}
+        {% if session.role == "admin" %}
         <li role="presentation"><a href="{{ url_for('users') }}">Users</a></li>
         {% endif %}
         <li role="presentation"><a href="{{ url_for('history') }}">History</a></li>
