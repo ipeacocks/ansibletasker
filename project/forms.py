@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, PasswordField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, EqualTo
 
 
 class AnsibleForm(FlaskForm):
@@ -40,9 +40,12 @@ class AddUserForm(FlaskForm):
     )
     email = StringField(
         'email',
-        validators=[DataRequired()]
+        validators=[DataRequired(), Length(min=6, max=35)]
     )
     password = PasswordField(
-        'password',
-        validators=[DataRequired()]
+        'New Password', 
+        validators=[DataRequired(), EqualTo('confirm', message='Passwords must match')]
+    )
+    confirm = PasswordField(
+        'Repeat Password'
     )

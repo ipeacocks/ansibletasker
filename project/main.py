@@ -50,6 +50,7 @@ def logout():
     session.pop('logged_in', None)
     session.pop('user_id', None)
     session.pop('name', None)
+    session.pop('role', None)
     flash('Goodbye!')
     return redirect(url_for('login'))
 
@@ -144,12 +145,13 @@ def list_users():
 @app.route("/users")
 @login_required
 def users():
-    form = AddUserForm(request.form)
-    return render_template(
-        'users.html',
-        users=list_users(),
-        form=form
-    )
+    if session['role'] == "admin":
+        form = AddUserForm(request.form)
+        return render_template('users.html',users=list_users(),form=form)
+    else:
+        error = 'Access for non-admin users is prohibited.'
+    return redirect(url_for('main'))
+
 
 
 @app.route("/add_user", methods=['GET','POST'])
