@@ -80,13 +80,14 @@ def login():
 def main():
     error = None
     form = AnsibleForm(request.form)
+    name = session['name']
     if request.method == 'POST':
         if form.validate_on_submit():
             session['hostname'] = form.hostname.data
             session['playbook'] = form.playbook.data
             session['output_level'] = form.output_level.data
             return redirect(url_for('output'))
-    return render_template('main.html', form=form, error=error)
+    return render_template('main.html', form=form, name=name, error=error)
 
 
 @app.route('/output')
