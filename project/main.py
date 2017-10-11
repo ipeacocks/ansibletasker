@@ -60,7 +60,6 @@ def login():
     form = LoginForm(request.form)
     if request.method == 'POST':
         user = User.query.filter_by(name=request.form['name']).first()
-        # if user and user.password == request.form['password']:
         if user and bcrypt.check_password_hash(user.password,
                     request.form['password']):
             session['logged_in'] = True
@@ -142,39 +141,49 @@ def list_users():
     return db.session.query(User).order_by(User.name)
 
 
-@app.route("/users")
+@app.route("/users", methods=['GET','POST'])
 @login_required
 def users():
-    if session['role'] == "admin":
-        form = AddUserForm(request.form)
-        return render_template('users.html',users=list_users(),form=form)
-    else:
-        error = 'Access for non-admin users is prohibited.'
-    return redirect(url_for('main'))
-
-
-
-@app.route("/add_user", methods=['GET','POST'])
-@login_required
-def add_user():
     error = None
     form = AddUserForm(request.form)
+    # if session['role'] == "admin":
     if request.method == 'POST':
-        # if form.validate_on_submit():
-        new_record = User(
-            datetime.datetime.utcnow(),
-            form.name.data,
-            form.email.data,
-            bcrypt.generate_password_hash(form.password.data),
-            'user'
-        )
-        db.session.add(new_record)
-        db.session.commit()
-        flash('Added new user!')
-        return redirect(url_for('users'))
-    else:
-        error = 'Invalid username or password.'
-    return redirect(url_for('users'))
+        if form.validate_on_submit():
+            new_record = User(
+                datetime.datetime.utcnow(),
+                form.name.data,
+                form.email.data,
+                bcrypt.generate_password_hash(form.password.data),
+                'user'
+            )
+            db.session.add(new_record)
+            db.session.commit()
+            # flash('Added new user!')
+            return render_template('users.html', users=list_users(), form=form, error=error)
+    return render_template('users.html', users=list_users(), form=form, error=error)
+
+
+# @app.route("/add_user", methods=['GET','POST'])
+# @login_required
+# def add_user():
+#     error = None
+#     form = AddUserForm(request.form)
+#     if request.method == 'POST':
+#         if form.validate_on_submit():
+#             new_record = User(
+#                 datetime.datetime.utcnow(),
+#                 form.name.data,
+#                 form.email.data,
+#                 bcrypt.generate_password_hash(form.password.data),
+#                 'user'
+#             )
+#             db.session.add(new_record)
+#             db.session.commit()
+#             flash('Added new user!')
+#             return redirect(url_for('users'))
+#     else:
+#         error = 'Invalid username or password.'
+#     return redirect(url_for('users'))
 
 
 @app.route("/history")

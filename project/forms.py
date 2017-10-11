@@ -22,6 +22,21 @@ class AnsibleForm(FlaskForm):
     )
 
 
+class AddUserForm(FlaskForm):
+    name = StringField(
+        'name',
+        validators=[DataRequired()]
+    )
+    email = StringField(
+        'email',
+        validators=[DataRequired()]
+    )
+    password = StringField(
+        'password',
+        validators=[DataRequired()]
+    )
+
+
 class LoginForm(FlaskForm):
     name = StringField(
         'name',
@@ -32,20 +47,3 @@ class LoginForm(FlaskForm):
         validators=[DataRequired()]
     )
 
-
-class AddUserForm(FlaskForm):
-    name = StringField(
-        'name',
-        validators=[DataRequired()]
-    )
-    email = StringField(
-        'email',
-        validators=[DataRequired(), Length(min=6, max=35)]
-    )
-    password = PasswordField(
-        'New Password', 
-        validators=[DataRequired(), EqualTo('confirm', message='Passwords must match')]
-    )
-    confirm = PasswordField(
-        'Repeat Password'
-    )
