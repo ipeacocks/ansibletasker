@@ -20,7 +20,6 @@ from forms import AnsibleForm, LoginForm, AddUserForm
 
 app = Flask(__name__)
 app.config.from_pyfile('_config.py')
-# $2b$12$/6k5KPJ.BjICuNh8AyrQZeb9JlsgBt3p/LrWEha6pkvnYs9SBc9u.
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
