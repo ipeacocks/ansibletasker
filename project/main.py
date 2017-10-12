@@ -146,44 +146,35 @@ def list_users():
 def users():
     error = None
     form = AddUserForm(request.form)
-    # if session['role'] == "admin":
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            new_record = User(
-                datetime.datetime.utcnow(),
-                form.name.data,
-                form.email.data,
-                bcrypt.generate_password_hash(form.password.data),
-                'user'
-            )
-            db.session.add(new_record)
-            db.session.commit()
-            # flash('Added new user!')
-            return render_template('users.html', users=list_users(), form=form, error=error)
-    return render_template('users.html', users=list_users(), form=form, error=error)
+    if session['role'] == "admin":
+        if request.method == 'POST':
+            if form.validate_on_submit():
+                new_record = User(
+                    datetime.datetime.utcnow(),
+                    form.name.data,
+                    form.email.data,
+                    bcrypt.generate_password_hash(form.password.data),
+                    'user'
+                )
+                db.session.add(new_record)
+                db.session.commit()
+                # flash('Added new user!')
+                return render_template('users.html', users=list_users(), form=form, error=error)
+    return render_template('users.html', users=list_users(), form=form)
 
 
-# @app.route("/add_user", methods=['GET','POST'])
-# @login_required
-# def add_user():
-#     error = None
-#     form = AddUserForm(request.form)
-#     if request.method == 'POST':
-#         if form.validate_on_submit():
-#             new_record = User(
-#                 datetime.datetime.utcnow(),
-#                 form.name.data,
-#                 form.email.data,
-#                 bcrypt.generate_password_hash(form.password.data),
-#                 'user'
-#             )
-#             db.session.add(new_record)
-#             db.session.commit()
-#             flash('Added new user!')
-#             return redirect(url_for('users'))
-#     else:
-#         error = 'Invalid username or password.'
-#     return redirect(url_for('users'))
+@app.route('/delete/<int:user_id>/')
+@login_required
+def delete_entry(user_id):
+    user = db.session.query(User).filter_by(id=user_id)
+    print(user)
+    if session['name'] == 'admin':
+        user.delete()
+        db.session.commit()
+        # flash('The user was deleted')
+        return redirect(url_for('users'))
+    else:
+        return redirect(url_for('users'))
 
 
 @app.route("/history")

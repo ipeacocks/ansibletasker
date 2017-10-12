@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, PasswordField
+from wtforms import StringField, SelectField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 
@@ -22,21 +22,6 @@ class AnsibleForm(FlaskForm):
     )
 
 
-class AddUserForm(FlaskForm):
-    name = StringField(
-        'name',
-        validators=[DataRequired()]
-    )
-    email = StringField(
-        'email',
-        validators=[DataRequired()]
-    )
-    password = StringField(
-        'password',
-        validators=[DataRequired()]
-    )
-
-
 class LoginForm(FlaskForm):
     name = StringField(
         'name',
@@ -47,3 +32,21 @@ class LoginForm(FlaskForm):
         validators=[DataRequired()]
     )
 
+
+class AddUserForm(FlaskForm):
+    name = StringField(
+        'name',
+        validators=[DataRequired()]
+    )
+    email = StringField(
+        'email',
+        validators=[DataRequired()]
+    )
+    password = PasswordField(
+        'password',
+        validators=[DataRequired()]
+    )
+    adminorno = BooleanField(
+        'I accept the TOS',
+        validators=[DataRequired()]
+    )

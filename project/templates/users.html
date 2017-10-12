@@ -10,12 +10,11 @@
     <form class="form-users" role="form" method="post" action="/users">
       {{ form.csrf_token }}
       <div class="row">
-          <table class="table">
+          <table class="table table-striped">
             <tbody>
               <tr>
-                <td>
-          {{ form.name(placeholder="name", class="form-control") }}
-          
+                <td class="col-md-4">
+          {{ form.name(placeholder="name", class="form-control") }}       
           <span class="error">
               {% if form.name.errors %}
                   {% for error in form.name.errors %}
@@ -24,7 +23,7 @@
               {% endif %}
           </span>
           </td>
-          <td>
+          <td class="col-md-4">
           {{ form.email(placeholder="email", class="form-control") }}
           <span class="error">
               {% if form.email.errors %}
@@ -34,7 +33,7 @@
               {% endif %}
           </span>
           </td>
-          <td>
+          <td class="col-md-4">
           {{ form.password(placeholder="password", class="form-control") }}
           <span class="error">
               {% if form.password.errors %}
@@ -44,8 +43,9 @@
               {% endif %}
           </span>
           </td>
+
           <td>
-              <button class="btn btn-primary" type="submit">Add</button>
+              <button class="btn btn-primary button_style_users" type="submit">Add</button>
           </td>
         </tr>
       </tbody>
@@ -58,10 +58,10 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Created at (UTC)</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>User Action</th>
+                <th class="col-md-4">Created at (UTC)</th>
+                <th class="col-md-4">Name</th>
+                <th class="col-md-4">Email</th>
+                <th class="col-md-4">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -71,9 +71,7 @@
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
               <td>
-                  <button type="button" class="btn btn-danger btn-sm button_style_users dropdown-toggle">
-                    <span class="glyphicon glyphicon-trash"></span>
-                  </button>
+                  <a href="{{ url_for('delete_entry', user_id = user.id) }}" class="btn btn-danger btn-sm button_style_users" role="button"><span class="glyphicon glyphicon-trash"></a>
               </td>
             </tr>
         {% endfor %}
