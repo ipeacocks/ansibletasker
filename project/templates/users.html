@@ -11,9 +11,18 @@
       {{ form.csrf_token }}
       <div class="row">
           <table class="table table-striped">
+          <thead>
+            <tr>
+                <th class="col-md-3">username</th>
+                <th class="col-md-2">email</th>
+                <th class="col-md-3">password</th>
+                <th class="col-md-2">admin</th>
+                <th class="col-md-3"></th>
+            </tr>
+          </thead>
             <tbody>
               <tr>
-                <td class="col-md-4">
+                <td>
           {{ form.name(placeholder="name", class="form-control") }}       
           <span class="error">
               {% if form.name.errors %}
@@ -23,7 +32,7 @@
               {% endif %}
           </span>
           </td>
-          <td class="col-md-4">
+          <td>
           {{ form.email(placeholder="email", class="form-control") }}
           <span class="error">
               {% if form.email.errors %}
@@ -33,7 +42,7 @@
               {% endif %}
           </span>
           </td>
-          <td class="col-md-4">
+          <td>
           {{ form.password(placeholder="password", class="form-control") }}
           <span class="error">
               {% if form.password.errors %}
@@ -43,7 +52,16 @@
               {% endif %}
           </span>
           </td>
-
+          <td>
+          {{ form.adminorno(placeholder="adminorno", class="btn btn-default active center-block") }}
+          <span class="error">
+              {% if form.adminorno.errors %}
+                  {% for error in form.adminorno.errors %}
+                      {{ error }}
+                  {% endfor %}
+              {% endif %}
+          </span>
+          </td>
           <td>
               <button class="btn btn-primary button_style_users" type="submit">Add</button>
           </td>
@@ -58,10 +76,11 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th class="col-md-4">Created at (UTC)</th>
-                <th class="col-md-4">Name</th>
-                <th class="col-md-4">Email</th>
-                <th class="col-md-4">Action</th>
+                <th class="col-md-3">created at (UTC)</th>
+                <th class="col-md-2">name</th>
+                <th class="col-md-3">email</th>
+                <th class="col-md-2">admin</th>
+                <th class="col-md-3">action</th>
             </tr>
         </thead>
         <tbody>
@@ -70,6 +89,7 @@
               <td>{{ user.create_date.strftime("%d/%m/%y %H:%M") }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
+              <td>X</td>
               <td>
                   <a href="{{ url_for('delete_entry', user_id = user.id) }}" class="btn btn-danger btn-sm button_style_users" role="button"><span class="glyphicon glyphicon-trash"></a>
               </td>
