@@ -54,16 +54,9 @@
           </td>
           <td>
           {{ form.adminorno(placeholder="adminorno", class="btn btn-default active center-block") }}
-          <span class="error">
-              {% if form.adminorno.errors %}
-                  {% for error in form.adminorno.errors %}
-                      {{ error }}
-                  {% endfor %}
-              {% endif %}
-          </span>
           </td>
           <td>
-              <button class="btn btn-primary button_style_users" type="submit">Add</button>
+              <button class="btn btn-success" type="submit">Add</button>
           </td>
         </tr>
       </tbody>
@@ -89,9 +82,13 @@
               <td>{{ user.create_date.strftime("%d/%m/%y %H:%M") }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
-              <td>X</td>
+              <td>{{ user.role }}</td>
               <td>
-                  <a href="{{ url_for('delete_entry', user_id = user.id) }}" class="btn btn-danger btn-sm button_style_users" role="button"><span class="glyphicon glyphicon-trash"></a>
+                {% if user.name == 'admin' %}
+                    <a href="{{ url_for('delete_entry', user_id = user.id) }}" class="btn btn-danger btn-sm disabled button_style_users" role="button"><span class="glyphicon glyphicon-trash"></a>
+                {% else %}
+                    <a href="{{ url_for('delete_entry', user_id = user.id) }}" class="btn btn-danger btn-sm button_style_users" role="button"><span class="glyphicon glyphicon-trash"></a>
+                {% endif %}
               </td>
             </tr>
         {% endfor %}

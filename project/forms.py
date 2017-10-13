@@ -47,6 +47,5 @@ class AddUserForm(FlaskForm):
         validators=[DataRequired()]
     )
     adminorno = BooleanField(
-        'I accept the TOS',
-        validators=[DataRequired()]
+        'adminorno'
     )

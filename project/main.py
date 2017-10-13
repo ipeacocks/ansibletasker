@@ -146,15 +146,17 @@ def list_users():
 def users():
     error = None
     form = AddUserForm(request.form)
+    role = 'admin' if form.adminorno.data else 'user'
     if session['role'] == "admin":
         if request.method == 'POST':
             if form.validate_on_submit():
+                print(form.adminorno.data)
                 new_record = User(
                     datetime.datetime.utcnow(),
                     form.name.data,
                     form.email.data,
                     bcrypt.generate_password_hash(form.password.data),
-                    'user'
+                    role
                 )
                 db.session.add(new_record)
                 db.session.commit()
