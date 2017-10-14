@@ -12,29 +12,28 @@
                     <i class="glyphicon glyphicon-user"></i>
                 </div>
                 {{ form.name(placeholder="name", class="form-control") }}
+                <span class="error">
+                    {% if form.name.errors %}
+                        {% for error in form.name.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endif %}
+                </span>
             </div>
-            <span class="error">
-                {% if form.name.errors %}
-                    {% for error in form.name.errors %}
-                        {{ error }}
-                    {% endfor %}
-                {% endif %}
-            </span>
             <br>
             <div class="input-group">
                 <div class="input-group-addon">
                     <i class="glyphicon glyphicon-lock"></i>
                 </div>
                 {{ form.password(placeholder="password", class="form-control") }}
+                <span class="error">
+                    {% if form.password.errors %}
+                        {% for error in form.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endif %}
+                </span>
             </div>
-            <span class="error">
-                {% if form.password.errors %}
-                    {% for error in form.password.errors %}
-                        {{ error }}
-                    {% endfor %}
-                {% endif %}
-            </span>
-
             <br>
         <button class="btn btn-primary button_style" type="submit">
             Submit <span class="glyphicon glyphicon-log-in"></span>

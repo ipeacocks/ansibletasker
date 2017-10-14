@@ -35,7 +35,7 @@ def login_required(test):
         if 'logged_in' in session:
             return test(*args, **kwargs)
         else:
-            flash('You need to login first.')
+            # flash('You need to login first.')
             return redirect(url_for('login'))
     return wrap
 
@@ -50,7 +50,7 @@ def logout():
     session.pop('user_id', None)
     session.pop('name', None)
     session.pop('role', None)
-    flash('Goodbye!')
+    # flash('Goodbye!')
     return redirect(url_for('login'))
 
 
@@ -66,7 +66,7 @@ def login():
             session['user_id'] = user.id
             session['name'] = user.name
             session['role'] = user.role
-            flash('Welcome!')
+            # flash('Welcome!')
             return redirect(url_for('main'))
         else:
             error = 'Invalid username or password.'
@@ -162,7 +162,8 @@ def users():
                 db.session.commit()
                 # flash('Added new user!')
                 return render_template('users.html', users=list_users(), form=form, error=error)
-    return render_template('users.html', users=list_users(), form=form)
+        return render_template('users.html', users=list_users(), form=form)
+    return redirect(url_for('main'))
 
 
 @app.route('/delete/<int:user_id>/')
