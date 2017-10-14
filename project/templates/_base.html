@@ -19,6 +19,22 @@
     <div class="container">
       <div class="row marketing">
 
+        <div class="row">
+          {% if error %}
+          <div class="alert alert-danger alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <strong>Error:</strong> {{ error }}
+          </div>
+          {% endif %}
+
+          {% for message in get_flashed_messages() %}
+          <div class="alert alert-success alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+
         {% block content %}
         {% endblock %}
 

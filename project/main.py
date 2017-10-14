@@ -35,7 +35,7 @@ def login_required(test):
         if 'logged_in' in session:
             return test(*args, **kwargs)
         else:
-            # flash('You need to login first.')
+            flash('You need to login first.')
             return redirect(url_for('login'))
     return wrap
 
@@ -50,7 +50,7 @@ def logout():
     session.pop('user_id', None)
     session.pop('name', None)
     session.pop('role', None)
-    # flash('Goodbye!')
+    flash('Goodbye!')
     return redirect(url_for('login'))
 
 
@@ -59,17 +59,18 @@ def login():
     error = None
     form = LoginForm(request.form)
     if request.method == 'POST':
-        user = User.query.filter_by(name=request.form['name']).first()
-        if user and bcrypt.check_password_hash(user.password,
+        if form.validate_on_submit():
+            user = User.query.filter_by(name=request.form['name']).first()
+            if user and bcrypt.check_password_hash(user.password,
                     request.form['password']):
-            session['logged_in'] = True
-            session['user_id'] = user.id
-            session['name'] = user.name
-            session['role'] = user.role
-            # flash('Welcome!')
-            return redirect(url_for('main'))
-        else:
-            error = 'Invalid username or password.'
+                session['logged_in'] = True
+                session['user_id'] = user.id
+                session['name'] = user.name
+                session['role'] = user.role
+                flash('Welcome!')
+                return redirect(url_for('main'))
+            else:
+                error = 'Invalid username or password.'
     return render_template('login.html', form=form, error=error)
 
 
@@ -150,7 +151,6 @@ def users():
     if session['role'] == "admin":
         if request.method == 'POST':
             if form.validate_on_submit():
-                print(form.adminorno.data)
                 new_record = User(
                     datetime.datetime.utcnow(),
                     form.name.data,
@@ -160,7 +160,7 @@ def users():
                 )
                 db.session.add(new_record)
                 db.session.commit()
-                # flash('Added new user!')
+                flash('Added new user!')
                 return render_template('users.html', users=list_users(), form=form, error=error)
         return render_template('users.html', users=list_users(), form=form)
     return redirect(url_for('main'))
@@ -174,7 +174,7 @@ def delete_entry(user_id):
     if session['name'] == 'admin':
         user.delete()
         db.session.commit()
-        # flash('The user was deleted')
+        flash('The user was deleted')
         return redirect(url_for('users'))
     else:
         return redirect(url_for('users'))
