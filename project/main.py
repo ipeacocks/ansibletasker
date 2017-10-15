@@ -5,6 +5,7 @@
 from flask import Flask, render_template, request, redirect, \
     url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError, InvalidRequestError
 from flask_bcrypt import Bcrypt
 
 import subprocess
@@ -158,10 +159,16 @@ def users():
                     bcrypt.generate_password_hash(form.password.data),
                     role
                 )
-                db.session.add(new_record)
-                db.session.commit()
-                flash('Added new user!')
-                return render_template('users.html', users=list_users(), form=form, error=error)
+                try:
+                    db.session.add(new_record)
+                    db.session.commit()
+                    flash('Added new user!')
+                    return redirect(url_for('users'))
+                except IntegrityError:
+                    error = 'That username is already exist.'
+                    print(error)
+                    db.session().rollback()
+                    return render_template('users.html', users=list_users(), form=form, error=error)
         return render_template('users.html', users=list_users(), form=form)
     return redirect(url_for('main'))
 
@@ -175,9 +182,7 @@ def delete_entry(user_id):
         user.delete()
         db.session.commit()
         flash('The user was deleted')
-        return redirect(url_for('users'))
-    else:
-        return redirect(url_for('users'))
+    return redirect(url_for('users'))
 
 
 @app.route("/history")
