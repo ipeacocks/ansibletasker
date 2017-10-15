@@ -7,10 +7,7 @@
 ## Screenshots
 
 <p align="center">
-  <img src="screenshots/2.png" width="440"/>
-  <img src="screenshots/3.png" width="440"/>
-  <img src="screenshots/4.png" width="440"/>
-  <img src="screenshots/5.png" width="440"/>
+  <img src="screenshots/ansibletasker.gif" />
 </p>
 
 ## Requirements
@@ -44,14 +41,13 @@ Activate virtual env:
 That's almost it. Use `requirments.txt` to setup all python dependencies:
 
 ```
-# cd ansibletasker
+# cd ansibletasker/project
 # pip install -r requirements.txt
 ```
 
 Create bare sqlite db:
 
 ```
-# cd project
 # python db_create.py
 ```
 
@@ -60,3 +56,5 @@ And finally launch:
 ```
 # python run.py
 ```
+
+Then you can login using link http://localhost:5000 and `admin:admin` creds.
