@@ -45,7 +45,7 @@ That's almost it. Use `requirments.txt` to setup all python dependencies:
 # pip install -r requirements.txt
 ```
 
-Create bare sqlite db:
+Create sqlite db:
 
 ```
 # python db_create.py
