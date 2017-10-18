@@ -23,7 +23,7 @@ This frontend is written on:
 Simply create virtualenv:
 
 ```
-# virtualenv --python=/usr/local/bin/python3 ansibletasker
+# virtualenv --python=/usr/local/bin/python3 --no-site-packages ansibletasker
 ```
 
 Clone code:
