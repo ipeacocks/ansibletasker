@@ -166,7 +166,6 @@ def users():
                     return redirect(url_for('users'))
                 except IntegrityError:
                     error = 'That username is already exist.'
-                    print(error)
                     db.session().rollback()
                     return render_template('users.html', users=list_users(), form=form, error=error)
         return render_template('users.html', users=list_users(), form=form)
@@ -177,7 +176,6 @@ def users():
 @login_required
 def delete_entry(user_id):
     user = db.session.query(User).filter_by(id=user_id)
-    print(user)
     if session['name'] == 'admin':
         user.delete()
         db.session.commit()
