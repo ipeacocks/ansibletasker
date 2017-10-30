@@ -14,9 +14,12 @@
 
 This frontend is written on:
 
-* Python Flask Framework
-* Bootstrap 3
+* Python 3
+* Flask Framework
 * SQLAlchemy
+* WTForms
+* Bootstrap 3
+
 
 ## Installation
 
