@@ -19,6 +19,7 @@ This frontend is written on:
 * SQLAlchemy
 * WTForms
 * Bootstrap 3
+* SQLite
 
 
 ## Installation
