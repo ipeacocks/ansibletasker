@@ -106,8 +106,8 @@ def stream():
     username = session['user_id']
 
     def generate():
-        ansible_command = "ansible-playbook {} -i ../ansible/hosts \
-        ../ansible/{} --limit {}".format(output_level, playbook, hostname)
+        ansible_command = "ansible-playbook {} -i ansible/hosts \
+        ansible/{} --limit {}".format(output_level, playbook, hostname)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,

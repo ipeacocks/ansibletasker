@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  user: ipeacocks
   tasks:
     - name: Check for single host
       fail: msg="Single host check failed."
