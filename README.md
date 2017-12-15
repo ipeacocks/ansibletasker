@@ -45,20 +45,20 @@ Activate virtual env:
 That's almost it. Use `requirments.txt` to setup all python dependencies:
 
 ```
-# cd ansibletasker/project
-# pip install -r requirements.txt
+# cd ansibletasker
+# pip install -r project/requirements.txt
 ```
 
 Create sqlite db:
 
 ```
-# python db_create.py
+# python project/db_create.py
 ```
 
 And finally launch:
 
 ```
-# python run.py
+# python project/run.py
 ```
 
 Then you can login using link http://localhost:5000 and `admin:admin` creds.
