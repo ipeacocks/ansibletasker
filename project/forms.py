@@ -5,6 +5,10 @@ from wtforms.validators import DataRequired, Length, EqualTo, Email
 
 
 class AnsibleForm(FlaskForm):
+    ansible_user = StringField(
+        'ansible_user',
+        validators=[DataRequired(), Length(min=6, max=25)]
+    )
     hostname = StringField(
         'hostname',
         validators=[DataRequired(), Length(min=6, max=25)]

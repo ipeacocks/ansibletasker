@@ -86,6 +86,7 @@ def main():
             session['hostname'] = form.hostname.data
             session['playbook'] = form.playbook.data
             session['output_level'] = form.output_level.data
+            session['ansible_user'] = form.ansible_user.data
             return redirect(url_for('output'))
     return render_template('main.html', form=form, name=name, error=error)
 
@@ -100,14 +101,15 @@ def output():
 @app.route('/ansible_stream')
 @login_required
 def stream():
+    ansible_user = session['ansible_user']
     hostname = session['hostname']
     playbook = session['playbook']
     output_level = session['output_level']
     username = session['user_id']
 
     def generate():
-        ansible_command = "ansible-playbook {} -i ansible/hosts \
-        ansible/{} --limit {}".format(output_level, playbook, hostname)
+        ansible_command = "ansible-playbook {} -u {} -i ansible/hosts \
+        ansible/{} --limit {}".format(output_level, ansible_user, playbook, hostname)
         proc = subprocess.Popen(
             [ansible_command],
             shell=True,
