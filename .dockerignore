@@ -1,0 +1,10 @@
+# These files/dirs won't go to container
+
+.git
+.gitignore
+.DS_Store
+Dockerfile*
+screenshots
+env
+README.md
+
