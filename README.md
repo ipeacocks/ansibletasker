@@ -63,10 +63,10 @@ Pull image from Docker Hub:
 ```
 And simply run it:
 ```
-# docker run -d -p 8080:5000 ansibletasker
+# docker run -d -p 5000:5000 ansibletasker
 ```
 Thats all, only copying private key remains:
 ```
 # docker cp ~/.ssh/id_rsa container_id:/usr/src/app/ansible
 ```
-That's it.
+That's it. Login using link http://localhost:5000 and `admin:admin` creds.
