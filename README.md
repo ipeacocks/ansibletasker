@@ -69,3 +69,4 @@ Thats all, only copying private key remains:
 ```
 # docker cp ~/.ssh/id_rsa container_id:/usr/src/app/ansible
 ```
+That's it.
