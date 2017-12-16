@@ -97,3 +97,4 @@ htmlcov
 pip-selfcheck.json
 *.retry
 *.db
+id_rsa

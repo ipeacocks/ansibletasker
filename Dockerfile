@@ -4,7 +4,6 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-# COPY requirements.txt ./
 RUN pip install --no-cache-dir -r project/requirements.txt
 RUN python project/db_create.py
 
