@@ -63,7 +63,7 @@ Pull image from Docker Hub:
 ```
 And simply run it:
 ```
-# docker run -d -p 5000:5000 ansibletasker
+# docker run -d -p 5000:5000 ipeacocks/ansibletasker
 ```
 Thats all, only copying private key remains:
 ```
