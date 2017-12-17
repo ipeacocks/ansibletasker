@@ -4,8 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN pip install --no-cache-dir -r project/requirements.txt
-RUN python project/db_create.py
+RUN pip install --no-cache-dir -r project/requirements.txt && python project/db_create.py
 
 EXPOSE 5000
 
