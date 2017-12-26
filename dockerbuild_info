@@ -1,0 +1,80 @@
+Ansibletasker:
+----
+
+# docker image ls
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ansibletasker       latest              b6a39579b89d        11 minutes ago      287MB
+alpine              3.7                 e21c333399e0        3 weeks ago         4.14MB
+----
+
+FROM alpine:3.7
+
+RUN apk add --update \
+    python3 \
+    python3-dev \
+    build-base \
+    libffi-dev \
+    openssl-dev \
+  && rm -rf /var/cache/apk/*
+
+WORKDIR /app
+
+COPY . .
+RUN pip3 install --no-cache-dir -r project/requirements.txt
+RUN python3 project/db_create.py
+
+EXPOSE 5000
+CMD ["python3", "project/run.py"]
+
+---------------------------------
+
+# docker image ls
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ansibletasker       latest              7c4a39c1821a        39 seconds ago      306MB
+python              3.6-alpine          024992483c59        5 days ago          92.1MB
+---
+
+FROM python:3.6-alpine
+
+RUN apk add --update \
+    build-base \
+    libffi-dev \
+    openssl-dev \
+  && rm -rf /var/cache/apk/*
+
+WORKDIR /app
+
+COPY . .
+RUN pip3 install --no-cache-dir -r project/requirements.txt
+RUN python3 project/db_create.py
+
+EXPOSE 5000
+CMD ["python3", "project/run.py"]
+
+---------------------------------
+
+# docker image ls
+REPOSITORY          TAG                 IMAGE ID            CREATED                  SIZE
+ansibletasker       latest              28a4e39667f3        Less than a second ago   310MB
+python              3.6-alpine3.7       6b691f9a252f        5 days ago               83.4MB
+---
+
+FROM python:3.6-alpine3.7
+
+RUN apk add --update \
+    build-base \
+    libffi-dev \
+    openssl-dev \
+  && rm -rf /var/cache/apk/*
+
+WORKDIR /app
+
+COPY . .
+RUN pip3 install --no-cache-dir -r project/requirements.txt
+RUN python3 project/db_create.py
+
+EXPOSE 5000
+CMD ["python3", "project/run.py"]
+
+---------------------------------
+
