@@ -69,6 +69,6 @@ And simply run it:
 ```
 Thats all, only copying private key remains:
 ```
-# docker cp ~/.ssh/id_rsa container_id:/usr/src/app/ansible
+# docker cp ~/.ssh/id_rsa container_id:/app/ansible
 ```
 That's it. Login using link http://localhost:5000 and `admin:admin` creds.
