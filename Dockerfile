@@ -1,11 +1,18 @@
-FROM python:3
+FROM alpine:3.7
 
-WORKDIR /usr/src/app
+RUN apk add --update \
+    python3 \
+    python3-dev \
+    build-base \
+    libffi-dev \
+    openssl-dev \
+  && rm -rf /var/cache/apk/*
+
+WORKDIR /app
 
 COPY . .
-
-RUN pip install --no-cache-dir -r project/requirements.txt && python project/db_create.py
+RUN pip3 install --no-cache-dir -r project/requirements.txt
+RUN python3 project/db_create.py
 
 EXPOSE 5000
-
-CMD [ "python", "project/run.py" ]
+CMD ["python3", "project/run.py"]
