@@ -169,7 +169,7 @@ def users():
                 except IntegrityError:
                     error = 'That username is already exist.'
                     db.session().rollback()
-                    return render_template('users.html', users=list_users(), form=form, error=error)
+                    return redirect(url_for('users'))
         return render_template('users.html', users=list_users(), form=form)
     return redirect(url_for('main'))
 
