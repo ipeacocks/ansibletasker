@@ -12,12 +12,9 @@
 
 ## Requirements
 
-This frontend is written on:
+This panel is written on:
 
 * Bootstrap 3
-
-And backend is built with help of:
-
 * Python 3
 * Flask Framework
 * SQLAlchemy
@@ -26,25 +23,26 @@ And backend is built with help of:
 
 ## Installation
 
-Simply create virtualenv:
-```
-# virtualenv --python=/usr/local/bin/python3 --no-site-packages ansibletasker
-```
 Clone code:
 ```
-# git clone git@github.com:ipeacocks/ansibletasker.git ansibletasker
+# git clone git@github.com:ipeacocks/ansibletasker.git
 ```
+Simply create virtualenv:
+```
+# cd ansibletasker
+# virtualenv --no-site-packages env
+```
+Make sure that `virtualenv` created env with `python3`.
 Ansible needs `id_rsa` private key for authorization to remote host, so copy it to `ansible` dir:
 ```
-# cp ~/.ssh/id_rsa ansibletasker/ansible
+# cp ~/.ssh/id_rsa ansible
 ```
 Activate virtual env:
 ```
-# source ansibletasker/bin/activate
+# source env/bin/activate
 ```
 That's almost it. Use `requirments.txt` to setup all python dependencies:
 ```
-# cd ansibletasker
 # pip install -r project/requirements.txt
 ```
 Create sqlite db:
